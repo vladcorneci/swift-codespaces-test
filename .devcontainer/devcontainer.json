@@ -1,20 +1,42 @@
-// Created by taki-on based on 
-// https://github.com/microsoft/vscode-dev-containers/blob/master/containers/swift-4/.devcontainer/devcontainer.json
 {
-	"name": "Swift 5.2.4",
-	"dockerFile": "Dockerfile",
-	"runArgs": [ "--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined" ],
-	"settings": { 
+	"name": "Swift",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"args": {
+			// Update the VARIANT arg to pick a Swift version 
+			"VARIANT": "5.2",
+			// Options
+			"INSTALL_NODE": "false",
+			"NODE_VERSION": "lts/*"
+		}
+	},
+	"runArgs": [
+		"--cap-add=SYS_PTRACE",
+		"--security-opt",
+		"seccomp=unconfined"
+	],
+
+	// Set *default* container specific settings.json values on container create.
+	"settings": {
 		"terminal.integrated.shell.linux": "/bin/bash",
 		"lldb.adapterType": "bundled",
 		"lldb.executable": "/usr/bin/lldb",
-		"sourcekit-lsp.serverPath": "/usr/bin/sourcekit-lsp",
-		"sde.languageServerMode": "sourcekit-lsp"
+		"sde.languageservermode": "sourcekite",
+		"swift.path.sourcekite": "/usr/local/bin/sourcekite"
 	},
+
+	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
 		"vknabel.vscode-swift-development-environment",
 		"vadimcn.vscode-lldb"
-	],
-	"postCreateCommand": "swiftc --version",
-	"remoteUser": "me"
+	]
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "swiftc --version",
+
+	// Uncomment to connect as a non-root user. See https://aka.ms/vscode-remote/containers/non-root.
+	// "remoteUser": "vscode"
 }
